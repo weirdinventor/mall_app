@@ -6,6 +6,7 @@ import 'package:mall_app/views/foodScreen.dart';
 import 'package:mall_app/views/homeScreen.dart';
 import 'package:mall_app/views/mapScreen.dart';
 import 'package:mall_app/views/productScreen.dart';
+import 'package:mall_app/views/storeScreen.dart';
 import 'package:mall_app/views/zaraScreen.dart';
 
 void main() {
@@ -51,6 +52,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/zara',
           page: () => ZaraScreen(),
+        ),
+        GetPage(
+          name: '/store',
+          page: () => StoreScreen(),
         ),
       ],
     );

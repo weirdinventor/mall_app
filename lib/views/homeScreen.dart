@@ -97,6 +97,11 @@ class HomeScreen extends StatelessWidget {
                           Get.toNamed('/food');
                         },
                       ),
+                      NavigationButton(
+                        text: 'Events',
+                        icon: FontAwesomeIcons.calendarWeek,
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ),

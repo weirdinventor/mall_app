@@ -6,6 +6,7 @@ class Store {
   final String description;
   final List<Product> productList;
   final String floor;
+  final String picUrl;
 
   Store({
     required this.id,
@@ -13,5 +14,6 @@ class Store {
     required this.description,
     required this.productList,
     required this.floor,
+    required this.picUrl,
   });
 }
