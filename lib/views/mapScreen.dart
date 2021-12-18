@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:mall_app/controllers/floorController.dart';
 
 class MapScreen extends StatelessWidget {
   MapScreen({Key? key}) : super(key: key);
 
   final isFloor = false.obs;
+
+  final FloorController _floorController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +34,19 @@ class MapScreen extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // map area
                 Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(50),
-                    margin: EdgeInsets.all(50),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
+                  child: Obx(
+                    () => Container(
+                      padding: EdgeInsets.all(50),
+                      margin: EdgeInsets.all(50),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        image: DecorationImage(
+                            image:
+                                AssetImage(_floorController.selecetdPic.value)),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
                   ),
                 ),
@@ -61,6 +70,8 @@ class MapScreen extends StatelessWidget {
                                 : GestureDetector(
                                     onTap: () {
                                       isFloor.value = false;
+                                      _floorController.selecetdPic.value =
+                                          'assets/floor/floorOneBlank.png';
                                     },
                                     child: Icon(
                                       Icons.arrow_back_ios,
@@ -82,12 +93,27 @@ class MapScreen extends StatelessWidget {
                       ),
                       Obx(() => (isFloor.value)
                           ? Expanded(
-                              child: Column(
-                                children: [
-                                  ServiceItem(
-                                      text: 'WC',
-                                      icon: FontAwesomeIcons.toilet),
-                                ],
+                              child: Obx(
+                                () => ListView.separated(
+                                  separatorBuilder: (context, i) => SizedBox(
+                                    height: 30,
+                                  ),
+                                  itemCount: _floorController
+                                      .selctedFloor.value.categoryList!.length,
+                                  itemBuilder: (context, i) {
+                                    return ServiceItem(
+                                      text: _floorController.selctedFloor.value
+                                          .categoryList![i].name,
+                                      icon: _floorController.selctedFloor.value
+                                          .categoryList![i].icon!,
+                                      onTap: () {
+                                        _floorController.selecetdPic.value =
+                                            _floorController.selctedFloor.value
+                                                .categoryList![i].picUrl;
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
                             )
                           : Expanded(
@@ -98,13 +124,37 @@ class MapScreen extends StatelessWidget {
                                     text: 'Floor 1',
                                     onTap: () {
                                       isFloor.value = true;
+                                      _floorController.selctedFloor.value =
+                                          _floorController.floors.value[0];
+                                      _floorController.selctedFloor.refresh();
+                                      _floorController.selecetdPic.value =
+                                          _floorController
+                                              .selctedFloor.value.picUrl!;
                                     },
                                   ),
                                   FloorItem(
                                     text: 'Floor 2',
+                                    onTap: () {
+                                      isFloor.value = true;
+                                      _floorController.selctedFloor.value =
+                                          _floorController.floors.value[1];
+                                      _floorController.selctedFloor.refresh();
+                                      _floorController.selecetdPic.value =
+                                          _floorController
+                                              .selctedFloor.value.picUrl!;
+                                    },
                                   ),
                                   FloorItem(
                                     text: 'Floor 3',
+                                    onTap: () {
+                                      isFloor.value = true;
+                                      _floorController.selctedFloor.value =
+                                          _floorController.floors.value[2];
+                                      _floorController.selctedFloor.refresh();
+                                      _floorController.selecetdPic.value =
+                                          _floorController
+                                              .selctedFloor.value.picUrl!;
+                                    },
                                   ),
                                 ],
                               ),

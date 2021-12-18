@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mall_app/services/bindings.dart';
 import 'package:mall_app/shared/constant.dart';
 import 'package:mall_app/views/foodScreen.dart';
 import 'package:mall_app/views/homeScreen.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Mall App',
       debugShowCheckedModeBanner: false,
+      initialBinding: MallBinding(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         elevatedButtonTheme: ElevatedButtonThemeData(
